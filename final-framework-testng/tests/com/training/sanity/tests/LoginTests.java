@@ -43,6 +43,7 @@ public class LoginTests {
 	@AfterMethod
 	public void tearDown() throws Exception {
 		Thread.sleep(1000);
+		screenShot.captureScreenShot("First");
 		driver.quit();
 	}
 	@Test
@@ -50,6 +51,7 @@ public class LoginTests {
 		loginPOM.sendUserName("admin");
 		loginPOM.sendPassword("admin@123");
 		loginPOM.clickLoginBtn(); 
-		screenShot.captureScreenShot("First");
+		
+		
 	}
 }
