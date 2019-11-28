@@ -2,28 +2,28 @@
 <testng-results skipped="0" failed="0" ignored="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="20573" started-at="2019-11-26T19:21:24 IST" finished-at="2019-11-26T19:21:45 IST">
+  <suite name="Default suite" duration-ms="21336" started-at="2019-11-27T14:57:56 IST" finished-at="2019-11-27T14:58:18 IST">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="20573" started-at="2019-11-26T19:21:24 IST" finished-at="2019-11-26T19:21:45 IST">
-      <class name="com.training.high.tests.TC3_RecoverPassword">
-        <test-method status="PASS" signature="setUpBeforeClass()[pri:0, instance:com.training.high.tests.TC3_RecoverPassword@3d99d22e]" name="setUpBeforeClass" is-config="true" duration-ms="11" started-at="2019-11-26T19:21:24 IST" finished-at="2019-11-26T19:21:24 IST">
+    <test name="Default test" duration-ms="21336" started-at="2019-11-27T14:57:56 IST" finished-at="2019-11-27T14:58:18 IST">
+      <class name="com.training.low.tests.TC4_DisplayOrderHistory">
+        <test-method status="PASS" signature="setUpBeforeClass()[pri:0, instance:com.training.low.tests.TC4_DisplayOrderHistory@3d99d22e]" name="setUpBeforeClass" is-config="true" duration-ms="16" started-at="2019-11-27T14:57:56 IST" finished-at="2019-11-27T14:57:56 IST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUpBeforeClass -->
-        <test-method status="PASS" signature="setUp()[pri:0, instance:com.training.high.tests.TC3_RecoverPassword@3d99d22e]" name="setUp" is-config="true" duration-ms="13436" started-at="2019-11-26T19:21:24 IST" finished-at="2019-11-26T19:21:37 IST">
+        <test-method status="PASS" signature="setUp()[pri:0, instance:com.training.low.tests.TC4_DisplayOrderHistory@3d99d22e]" name="setUp" is-config="true" duration-ms="14558" started-at="2019-11-27T14:57:56 IST" finished-at="2019-11-27T14:58:11 IST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method status="PASS" signature="forgotPasswordTest()[pri:0, instance:com.training.high.tests.TC3_RecoverPassword@3d99d22e]" name="forgotPasswordTest" duration-ms="4900" started-at="2019-11-26T19:21:37 IST" finished-at="2019-11-26T19:21:42 IST">
+        <test-method status="PASS" signature="OrderHistoryDisplay()[pri:0, instance:com.training.low.tests.TC4_DisplayOrderHistory@3d99d22e]" name="OrderHistoryDisplay" duration-ms="4464" started-at="2019-11-27T14:58:11 IST" finished-at="2019-11-27T14:58:15 IST">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- forgotPasswordTest -->
-        <test-method status="PASS" signature="tearDown()[pri:0, instance:com.training.high.tests.TC3_RecoverPassword@3d99d22e]" name="tearDown" is-config="true" duration-ms="2189" started-at="2019-11-26T19:21:42 IST" finished-at="2019-11-26T19:21:45 IST">
+        </test-method> <!-- OrderHistoryDisplay -->
+        <test-method status="PASS" signature="tearDown()[pri:0, instance:com.training.low.tests.TC4_DisplayOrderHistory@3d99d22e]" name="tearDown" is-config="true" duration-ms="2261" started-at="2019-11-27T14:58:15 IST" finished-at="2019-11-27T14:58:18 IST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-      </class> <!-- com.training.high.tests.TC3_RecoverPassword -->
+      </class> <!-- com.training.low.tests.TC4_DisplayOrderHistory -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

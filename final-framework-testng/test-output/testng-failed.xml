@@ -3,14 +3,14 @@
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="com.training.high.tests.TC3_InvalidLogin">
+      <class name="com.training.low.tests.TC4_DisplayOrderHistory">
         <methods>
+          <include name="setUpBeforeClass"/>
+          <include name="OrderHistoryDisplay"/>
           <include name="tearDown"/>
           <include name="setUp"/>
-          <include name="invalidLoginTest"/>
-          <include name="setUpBeforeClass"/>
         </methods>
-      </class> <!-- com.training.high.tests.TC3_InvalidLogin -->
+      </class> <!-- com.training.low.tests.TC4_DisplayOrderHistory -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
