@@ -30,6 +30,10 @@ public class MyAccountPOM
 	@FindBy(xpath="//h1[contains(text(),'Order History')]")
 	private WebElement actualMessage; 
 	
+	@FindBy(xpath="//a[contains(text(),'Brands')]")
+	private WebElement brandOption; 
+	
+	
 	public void myAccountOrderHistory()
 	{	
 		//move mouse over to My Account
@@ -48,6 +52,11 @@ public class MyAccountPOM
 		String expectedMessage = "ORDER HISTORY";
 		String actualMessage=this.actualMessage.getText();
 		Assert.assertEquals(expectedMessage,actualMessage);
+	}
+	
+	public void clickBrands()
+	{
+		this.brandOption.click();
 	}
 	
 }

@@ -1,13 +1,19 @@
 package com.training.readexcel;
 
 import java.io.File;
+
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Iterator;
+import java.util.Properties;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.testng.annotations.BeforeClass;
+
 
 /**
  * 
@@ -18,7 +24,11 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  *      participatns are asked to refractor this path in the property file and
  *      access.
  */
-public class ApachePOIExcelRead {
+public class ApachePOIExcelRead 
+{
+	private static Properties properties;
+	//private static String loginexcelpath;
+	//private String loginexcel;
 	public  String [][] getExcelContent(String fileName) {
 		int rowCount =0; 
 		String [][] list1 = null; 
@@ -87,9 +97,15 @@ public class ApachePOIExcelRead {
 
 		return list1;
 	}
+	
 
-	public static void main(String[] args) {
-		String fileName = "C:/Users/Naveen/Desktop/Testing.xlsx";
+	
+
+	public static void main(String[] args) throws IOException 
+	{
+		
+		 String fileName=properties.getProperty("registrationexcelpath");
+		//String fileName = "C:\\kiran data\\ManialProject\\LoginTestData.xlsx";
 		
 		for(String [] temp : new ApachePOIExcelRead().getExcelContent(fileName)){
 			for(String  tt : temp){

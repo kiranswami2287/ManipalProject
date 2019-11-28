@@ -4,6 +4,7 @@ package com.training.high.tests;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
@@ -22,6 +23,8 @@ public class TC2_LoginTest
 	//Declare all variables and objects
 	private WebDriver driver;
 	private String baseUrl;
+	private String username;
+	private String password;
 	private LoginPOM loginPOM;
 	private HomePOM homePOM;
 	private static Properties properties;
@@ -43,6 +46,7 @@ public class TC2_LoginTest
 	{
 		//initialize driver
 		driver = DriverFactory.getDriver(DriverNames.CHROME);
+		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 		//initialize POM files
 		loginPOM = new LoginPOM(driver); 
 		homePOM= new HomePOM(driver);
@@ -65,14 +69,19 @@ public class TC2_LoginTest
 	@Test
 	public void validLoginTest()
 	{
+				
 		//Move mouse over to My Account
 		homePOM.selectMyAccount();
 		
 		//select Login option from My Account
 		homePOM.myAccountLogin();
+		//read username from property file
+		username=properties.getProperty("username");
+		//read password from property file
+		password=properties.getProperty("password");
 		
 		//login to Application
-		loginPOM.sendLoginDetails("kiran@yahoo.com","jun22jun");
+		loginPOM.sendLoginDetails(username,password);
 		
 		//validate login
 		loginPOM.loginValidate();

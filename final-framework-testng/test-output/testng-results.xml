@@ -2,28 +2,75 @@
 <testng-results skipped="0" failed="0" ignored="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="21336" started-at="2019-11-27T14:57:56 IST" finished-at="2019-11-27T14:58:18 IST">
+  <suite name="Default suite" duration-ms="22976" started-at="2019-11-28T18:04:02 IST" finished-at="2019-11-28T18:04:25 IST">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="21336" started-at="2019-11-27T14:57:56 IST" finished-at="2019-11-27T14:58:18 IST">
-      <class name="com.training.low.tests.TC4_DisplayOrderHistory">
-        <test-method status="PASS" signature="setUpBeforeClass()[pri:0, instance:com.training.low.tests.TC4_DisplayOrderHistory@3d99d22e]" name="setUpBeforeClass" is-config="true" duration-ms="16" started-at="2019-11-27T14:57:56 IST" finished-at="2019-11-27T14:57:56 IST">
+    <test name="Default test" duration-ms="22976" started-at="2019-11-28T18:04:02 IST" finished-at="2019-11-28T18:04:25 IST">
+      <class name="com.training.high.tests.TC1_RegistrationTest">
+        <test-method status="PASS" signature="setUpBeforeClass()[pri:0, instance:com.training.high.tests.TC1_RegistrationTest@3a883ce7]" name="setUpBeforeClass" is-config="true" duration-ms="16" started-at="2019-11-28T18:04:02 IST" finished-at="2019-11-28T18:04:02 IST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUpBeforeClass -->
-        <test-method status="PASS" signature="setUp()[pri:0, instance:com.training.low.tests.TC4_DisplayOrderHistory@3d99d22e]" name="setUp" is-config="true" duration-ms="14558" started-at="2019-11-27T14:57:56 IST" finished-at="2019-11-27T14:58:11 IST">
+        <test-method status="PASS" signature="setUp()[pri:0, instance:com.training.high.tests.TC1_RegistrationTest@3a883ce7]" name="setUp" is-config="true" duration-ms="14408" started-at="2019-11-28T18:04:03 IST" finished-at="2019-11-28T18:04:17 IST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method status="PASS" signature="OrderHistoryDisplay()[pri:0, instance:com.training.low.tests.TC4_DisplayOrderHistory@3d99d22e]" name="OrderHistoryDisplay" duration-ms="4464" started-at="2019-11-27T14:58:11 IST" finished-at="2019-11-27T14:58:15 IST">
+        <test-method status="PASS" signature="validRegistrationTest(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:com.training.high.tests.TC1_RegistrationTest@3a883ce7]" name="validRegistrationTest" duration-ms="5540" started-at="2019-11-28T18:04:17 IST" data-provider="excel-inputs" finished-at="2019-11-28T18:04:23 IST">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Ashwini]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[Patil]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[ashwini@gmail.com]]>
+              </value>
+            </param>
+            <param index="3">
+              <value>
+                <![CDATA[7.654356789E9]]>
+              </value>
+            </param>
+            <param index="4">
+              <value>
+                <![CDATA[wagholi]]>
+              </value>
+            </param>
+            <param index="5">
+              <value>
+                <![CDATA[pune]]>
+              </value>
+            </param>
+            <param index="6">
+              <value>
+                <![CDATA[412207.0]]>
+              </value>
+            </param>
+            <param index="7">
+              <value>
+                <![CDATA[nov22nov]]>
+              </value>
+            </param>
+            <param index="8">
+              <value>
+                <![CDATA[nov22nov]]>
+              </value>
+            </param>
+          </params>
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- OrderHistoryDisplay -->
-        <test-method status="PASS" signature="tearDown()[pri:0, instance:com.training.low.tests.TC4_DisplayOrderHistory@3d99d22e]" name="tearDown" is-config="true" duration-ms="2261" started-at="2019-11-27T14:58:15 IST" finished-at="2019-11-27T14:58:18 IST">
+        </test-method> <!-- validRegistrationTest -->
+        <test-method status="PASS" signature="tearDown()[pri:0, instance:com.training.high.tests.TC1_RegistrationTest@3a883ce7]" name="tearDown" is-config="true" duration-ms="2280" started-at="2019-11-28T18:04:23 IST" finished-at="2019-11-28T18:04:25 IST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-      </class> <!-- com.training.low.tests.TC4_DisplayOrderHistory -->
+      </class> <!-- com.training.high.tests.TC1_RegistrationTest -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

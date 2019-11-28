@@ -4,11 +4,15 @@ package com.training.high.tests;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
+
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
+import com.training.dataproviders.LoginDataProviders;
 import com.training.generics.ScreenShot;
 import com.training.pom.RegistrationPOM;
 import com.training.pom.HomePOM;
@@ -41,6 +45,7 @@ import com.training.utility.DriverNames;
 		{
 			//initialize driver
 			driver = DriverFactory.getDriver(DriverNames.CHROME);
+			driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 			//initialize POM files
 			homePOM= new HomePOM(driver);
 			registrationPOM=new RegistrationPOM(driver);
@@ -62,17 +67,21 @@ import com.training.utility.DriverNames;
 		}
 		
 		
-		@Test
-		public void validRegistrationTest() throws InterruptedException 
+		@Test(dataProvider = "excel-inputs", dataProviderClass = LoginDataProviders.class)
+		public void validRegistrationTest(String firstName, String lastName, String email, String telephone, String address1, String city, String postcode, String password, String confirmPassword) throws InterruptedException 
 		{
 			//Move mouse over to My Account
 			homePOM.selectMyAccount();
 			
 			//select Register option from My Account
 			homePOM.myAccountRegister();
-			
+			/*
+			 * String emailid = email.split(@)
+			 * "ashwini"+random(1-100) +"@gmail.com"
+			 */
+	
 			//Register new user
-			registrationPOM.sendRegistrationDetails("priya","B","priya@gmail.com","9241835892","Jayanagar","Bangalore","560082","nov22nov","nov22nov");
+			registrationPOM.sendRegistrationDetails(firstName,lastName,email,telephone,address1,city,postcode,password,confirmPassword);
 							
 			//continue with registration
 			registrationPOM.clickContinueBtn();		
@@ -82,4 +91,3 @@ import com.training.utility.DriverNames;
 		}
 	}		
 	
-

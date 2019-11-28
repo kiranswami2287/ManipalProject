@@ -4,6 +4,7 @@ package com.training.high.tests;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
@@ -23,6 +24,9 @@ public class TC3_RecoverPassword
 	//Declare all variables and objects
 	private WebDriver driver;
 	private String baseUrl;
+	private String validEmail;
+	private String invalidEmail;
+	private String invalidPassword;
 	private LoginPOM loginPOM;
 	private HomePOM homePOM;
 	private RecoverPasswordPOM recoverPasswordPOM;
@@ -45,6 +49,7 @@ public class TC3_RecoverPassword
 	{
 		//initialize driver
 		driver = DriverFactory.getDriver(DriverNames.CHROME);
+		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 		//initialize POM files
 		loginPOM = new LoginPOM(driver); 
 		homePOM= new HomePOM(driver);
@@ -75,14 +80,17 @@ public class TC3_RecoverPassword
 		//select Login option from My Account
 		homePOM.myAccountLogin();
 		
+		invalidEmail=properties.getProperty("invalidemail");
+		invalidPassword=properties.getProperty("invalidpassword");
 		//login to Application
-		loginPOM.sendLoginDetails("prashant@yahoo.com","jun22jun");
+		loginPOM.sendLoginDetails(invalidEmail,invalidPassword);
 		
 		//verify invalid login
 		loginPOM.invalidLogin();
 		
+		validEmail=properties.getProperty("username");
 		//Recover Password details
-		recoverPasswordPOM.sendForgotPasswordDetails("kiran@yahoo.com");
+		recoverPasswordPOM.sendForgotPasswordDetails(validEmail);
 		
 		//validate email and password
 		recoverPasswordPOM.forgotPasswordValidate();

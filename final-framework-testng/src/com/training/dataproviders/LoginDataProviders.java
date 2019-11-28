@@ -9,6 +9,7 @@ import com.training.dao.ELearningDAO;
 import com.training.readexcel.ApachePOIExcelRead;
 import com.training.readexcel.ReadExcel;
 
+
 public class LoginDataProviders {
 
 	@DataProvider(name = "db-inputs")
@@ -30,12 +31,15 @@ public class LoginDataProviders {
 		return result;
 	}
 	
+	
 	@DataProvider(name = "excel-inputs")
-	public Object[][] getExcelData(){
-		String fileName ="C:/Users/Naveen/Desktop/Testing.xlsx"; 
+	public Object[][] getExcelData()
+	{
+		
+		String fileName ="C:\\kiran data\\ManialProject\\RegistrationTestData.xlsx"; 
 		return new ApachePOIExcelRead().getExcelContent(fileName); 
 	}
-	
+		
 	@DataProvider(name = "xls-inputs")
 	public Object[][] getXLSData(){
 		// ensure you will have the title as first line in the file 

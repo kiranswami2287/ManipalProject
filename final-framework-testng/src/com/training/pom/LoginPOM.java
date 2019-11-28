@@ -59,7 +59,7 @@ public class LoginPOM
 		String expectedMessage = "Warning: No match for E-Mail Address and/or Password.";
 		String errorMessage=this.loginErrorMessage.getText();
 		Assert.assertEquals(expectedMessage,errorMessage);
-		//Thread.sleep(500);
+		Thread.sleep(500);
 		//click on forgotten password link
 		forgotPasswordLink.click();
 			

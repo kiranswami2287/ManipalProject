@@ -106,10 +106,7 @@ public class RegistrationPOM
 		Select countryDropdown=new Select(this.country);
 		countryDropdown.selectByVisibleText("India");
 		
-		//Explicit wait
-		WebDriverWait wait1=new WebDriverWait(driver, 30);
-		expicitWait1 = wait1.until(ExpectedConditions.visibilityOfElementLocated(By.name("zone_id")));
-		//Thread.sleep(1000);
+		Thread.sleep(1000);
 		//select state from dropdown
 		Select stateDropdown=new Select(this.state);
 		stateDropdown.selectByVisibleText("Karnataka"); 
