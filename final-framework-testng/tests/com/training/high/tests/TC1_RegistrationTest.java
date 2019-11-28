@@ -1,5 +1,6 @@
+//packages
 package com.training.high.tests;
-
+//import classes & Interfaces
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
@@ -9,35 +10,41 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import com.training.generics.ScreenShot;
-import com.training.pom.LoginPOM;
 import com.training.pom.RegistrationPOM;
 import com.training.pom.HomePOM;
 import com.training.utility.DriverFactory;
 import com.training.utility.DriverNames;
 
-	public class TC1_RegistrationTest {
-
+	public class TC1_RegistrationTest
+	{
+		//Declare all variables and objects
 		private WebDriver driver;
 		private String baseUrl;
-		private LoginPOM loginPOM;
 		private RegistrationPOM registrationPOM;
 		private HomePOM homePOM;
 		private static Properties properties;
 		private ScreenShot screenShot;
 
 		@BeforeClass
-		public static void setUpBeforeClass() throws IOException {
+		public static void setUpBeforeClass() throws IOException 
+		{
+			//initialize properties file
 			properties = new Properties();
+			//Read properties file from given path
 			FileInputStream inStream = new FileInputStream("./resources/others.properties");
+			//load data from properties file
 			properties.load(inStream);
 		}
 
 		@BeforeMethod
-		public void setUp() throws Exception {
+		public void setUp() throws Exception 
+		{
+			//initialize driver
 			driver = DriverFactory.getDriver(DriverNames.CHROME);
-			//loginPOM = new LoginPOM(driver); 
+			//initialize POM files
 			homePOM= new HomePOM(driver);
 			registrationPOM=new RegistrationPOM(driver);
+			//call URL from properties file
 			baseUrl = properties.getProperty("baseURL");
 			screenShot = new ScreenShot(driver); 
 			// open the browser 
@@ -45,9 +52,12 @@ import com.training.utility.DriverNames;
 		}
 		
 		@AfterMethod
-		public void tearDown() throws Exception {
+		public void tearDown() throws Exception 
+		{
 			Thread.sleep(1000);
-			screenShot.captureScreenShot("First");
+			// capture screenshot
+			screenShot.captureScreenShot("TC1");
+			//close all opened windows
 			driver.quit();
 		}
 		
@@ -55,12 +65,19 @@ import com.training.utility.DriverNames;
 		@Test
 		public void validRegistrationTest() throws InterruptedException 
 		{
-			homePOM.myAccountRegister("Register");
+			//Move mouse over to My Account
+			homePOM.selectMyAccount();
 			
-			registrationPOM.sendRegistrationDetails("Pradnya","B","pradnya2@gmail.com","9241835892","Jayanagar","Bangalore","560082","Neha123","Neha123");
+			//select Register option from My Account
+			homePOM.myAccountRegister();
+			
+			//Register new user
+			registrationPOM.sendRegistrationDetails("priya","B","priya@gmail.com","9241835892","Jayanagar","Bangalore","560082","nov22nov","nov22nov");
 							
+			//continue with registration
 			registrationPOM.clickContinueBtn();		
 			
+			//validate registration
 			registrationPOM.registrationValidate();
 		}
 	}		

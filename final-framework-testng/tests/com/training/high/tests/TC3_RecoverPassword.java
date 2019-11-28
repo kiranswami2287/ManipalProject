@@ -1,5 +1,6 @@
+//packages
 package com.training.high.tests;
-
+//import classes & Interfaces
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
@@ -17,28 +18,38 @@ import com.training.pom.LoginPOM;
 import com.training.utility.DriverFactory;
 import com.training.utility.DriverNames;
 
-public class TC3_RecoverPassword {
+public class TC3_RecoverPassword 
+{
+	//Declare all variables and objects
 	private WebDriver driver;
 	private String baseUrl;
 	private LoginPOM loginPOM;
 	private HomePOM homePOM;
-	private RecoverPasswordPOM forgotPasswordPOM;
+	private RecoverPasswordPOM recoverPasswordPOM;
 	private static Properties properties;
 	private ScreenShot screenShot;
 
 	@BeforeClass
-	public static void setUpBeforeClass() throws IOException {
+	public static void setUpBeforeClass() throws IOException 
+	{
+		//initialize properties file
 		properties = new Properties();
+		//Read properties file from given path
 		FileInputStream inStream = new FileInputStream("./resources/others.properties");
+		//load data from properties file
 		properties.load(inStream);
 	}
 
 	@BeforeMethod
-	public void setUp() throws Exception {
+	public void setUp() throws Exception 
+	{
+		//initialize driver
 		driver = DriverFactory.getDriver(DriverNames.CHROME);
+		//initialize POM files
 		loginPOM = new LoginPOM(driver); 
 		homePOM= new HomePOM(driver);
-		forgotPasswordPOM=new RecoverPasswordPOM(driver);
+		recoverPasswordPOM=new RecoverPasswordPOM(driver);
+		//call URL from properties file
 		baseUrl = properties.getProperty("baseURL");
 		screenShot = new ScreenShot(driver); 
 		// open the browser 
@@ -46,20 +57,35 @@ public class TC3_RecoverPassword {
 	}
 	
 	@AfterMethod
-	public void tearDown() throws Exception {
+	public void tearDown() throws Exception 
+	{
 		Thread.sleep(1000);
-		screenShot.captureScreenShot("First");
+		// capture screenshot
+		screenShot.captureScreenShot("TC3");
+		//close all opened windows
 		driver.quit();
 	}
 	
 	@Test
 	public void forgotPasswordTest() throws InterruptedException
 	{
-		homePOM.myAccountLogin("Login");
+		//Move mouse over to My Account
+		homePOM.selectMyAccount();
+		
+		//select Login option from My Account
+		homePOM.myAccountLogin();
+		
+		//login to Application
 		loginPOM.sendLoginDetails("prashant@yahoo.com","jun22jun");
+		
+		//verify invalid login
 		loginPOM.invalidLogin();
-		forgotPasswordPOM.sendForgotPasswordDetails("kiran@yahoo.com");
-		forgotPasswordPOM.forgotPasswordValidate();
+		
+		//Recover Password details
+		recoverPasswordPOM.sendForgotPasswordDetails("kiran@yahoo.com");
+		
+		//validate email and password
+		recoverPasswordPOM.forgotPasswordValidate();
 		
 	}
 }

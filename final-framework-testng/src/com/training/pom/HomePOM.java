@@ -1,21 +1,21 @@
+//package
 package com.training.pom;
-
+//import classes and interfaces
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.Select;
 
 public class HomePOM {
-
-private WebDriver driver; 
-	
+	//Declare webdriver
+	private WebDriver driver; 
+	//define constructor
 	public HomePOM(WebDriver driver) {
 		this.driver = driver; 
 		PageFactory.initElements(driver, this);
 }
-	
+	//find Webelements by locators
 	@FindBy(xpath="//*[@id='top-links1']/ul/li[3]/a")
 	private WebElement myAccount;
 	
@@ -25,20 +25,25 @@ private WebDriver driver;
 	@FindBy(xpath="//ul[@class='dropdown-menu dropdown-menu-right myaccount-menu']//a[contains(text(),'Login')]")
 	private WebElement loginOption;
 	
-	public void myAccountRegister(String register)
+	
+	public void selectMyAccount()
 	{
-	Actions action=new Actions(driver);
-	action.moveToElement(myAccount).build().perform();
-	myAccount.click();
-	registerOption.click();
+		//move mouse over to My Account
+		Actions action=new Actions(driver);
+		action.moveToElement(myAccount).build().perform();
+		myAccount.click();
 	}
 	
-	public void myAccountLogin(String login)
+	public void myAccountRegister()
 	{
-	Actions action=new Actions(driver);
-	action.moveToElement(myAccount).build().perform();
-	myAccount.click();
-	loginOption.click();
+		//click on Register option from MyAccount
+		registerOption.click();
+	}
+	
+	public void myAccountLogin()
+	{
+		//click on Login option from MyAccount
+		loginOption.click();
 	}
 	
 	
