@@ -1,7 +1,11 @@
 package com.training.dataproviders;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.List;
+import java.util.Properties;
 
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 
 import com.training.bean.LoginBean;
@@ -10,7 +14,9 @@ import com.training.readexcel.ApachePOIExcelRead;
 import com.training.readexcel.ReadExcel;
 
 
-public class LoginDataProviders {
+public class LoginDataProviders 
+{
+	private static Properties properties;
 
 	@DataProvider(name = "db-inputs")
 	public Object [][] getDBData() {
@@ -32,11 +38,18 @@ public class LoginDataProviders {
 	}
 	
 	
+	
 	@DataProvider(name = "excel-inputs")
-	public Object[][] getExcelData()
+	public Object[][] getExcelData() throws IOException
 	{
+		//initialize properties file
+		properties = new Properties();
+		//Read properties file from given path
+		FileInputStream inStream = new FileInputStream("./resources/others.properties");
+		//load data from properties file
+		properties.load(inStream);
+		String fileName=properties.getProperty("registrationexcelpath");
 		
-		String fileName ="C:\\kiran data\\ManialProject\\RegistrationTestData.xlsx"; 
 		return new ApachePOIExcelRead().getExcelContent(fileName); 
 	}
 		
