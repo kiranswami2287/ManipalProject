@@ -3,14 +3,14 @@
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="com.training.high.tests.NewRegistrationTest">
+      <class name="com.training.high.tests.TC1_RegistrationTest">
         <methods>
-          <include name="setUp"/>
-          <include name="validRegistrationTest" invocation-numbers="0"/>
           <include name="tearDown"/>
+          <include name="validRegistrationTest"/>
           <include name="setUpBeforeClass"/>
+          <include name="setUp"/>
         </methods>
-      </class> <!-- com.training.high.tests.NewRegistrationTest -->
+      </class> <!-- com.training.high.tests.TC1_RegistrationTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

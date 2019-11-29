@@ -2,24 +2,24 @@
 <testng-results skipped="0" failed="0" ignored="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="22976" started-at="2019-11-28T18:04:02 IST" finished-at="2019-11-28T18:04:25 IST">
+  <suite name="Default suite" duration-ms="23873" started-at="2019-11-29T11:21:40 IST" finished-at="2019-11-29T11:22:04 IST">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="22976" started-at="2019-11-28T18:04:02 IST" finished-at="2019-11-28T18:04:25 IST">
+    <test name="Default test" duration-ms="23873" started-at="2019-11-29T11:21:40 IST" finished-at="2019-11-29T11:22:04 IST">
       <class name="com.training.high.tests.TC1_RegistrationTest">
-        <test-method status="PASS" signature="setUpBeforeClass()[pri:0, instance:com.training.high.tests.TC1_RegistrationTest@3a883ce7]" name="setUpBeforeClass" is-config="true" duration-ms="16" started-at="2019-11-28T18:04:02 IST" finished-at="2019-11-28T18:04:02 IST">
+        <test-method status="PASS" signature="setUpBeforeClass()[pri:0, instance:com.training.high.tests.TC1_RegistrationTest@49fc609f]" name="setUpBeforeClass" is-config="true" duration-ms="14" started-at="2019-11-29T11:21:40 IST" finished-at="2019-11-29T11:21:40 IST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUpBeforeClass -->
-        <test-method status="PASS" signature="setUp()[pri:0, instance:com.training.high.tests.TC1_RegistrationTest@3a883ce7]" name="setUp" is-config="true" duration-ms="14408" started-at="2019-11-28T18:04:03 IST" finished-at="2019-11-28T18:04:17 IST">
+        <test-method status="PASS" signature="setUp()[pri:0, instance:com.training.high.tests.TC1_RegistrationTest@49fc609f]" name="setUp" is-config="true" duration-ms="14211" started-at="2019-11-29T11:21:41 IST" finished-at="2019-11-29T11:21:55 IST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method status="PASS" signature="validRegistrationTest(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:com.training.high.tests.TC1_RegistrationTest@3a883ce7]" name="validRegistrationTest" duration-ms="5540" started-at="2019-11-28T18:04:17 IST" data-provider="excel-inputs" finished-at="2019-11-28T18:04:23 IST">
+        <test-method status="PASS" signature="validRegistrationTest(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:com.training.high.tests.TC1_RegistrationTest@49fc609f]" name="validRegistrationTest" duration-ms="6676" started-at="2019-11-29T11:21:55 IST" data-provider="excel-inputs" finished-at="2019-11-29T11:22:01 IST">
           <params>
             <param index="0">
               <value>
-                <![CDATA[Ashwini]]>
+                <![CDATA[Ashwini1]]>
               </value>
             </param>
             <param index="1">
@@ -29,7 +29,7 @@
             </param>
             <param index="2">
               <value>
-                <![CDATA[ashwini@gmail.com]]>
+                <![CDATA[ashwini123@gmail.com]]>
               </value>
             </param>
             <param index="3">
@@ -66,7 +66,7 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- validRegistrationTest -->
-        <test-method status="PASS" signature="tearDown()[pri:0, instance:com.training.high.tests.TC1_RegistrationTest@3a883ce7]" name="tearDown" is-config="true" duration-ms="2280" started-at="2019-11-28T18:04:23 IST" finished-at="2019-11-28T18:04:25 IST">
+        <test-method status="PASS" signature="tearDown()[pri:0, instance:com.training.high.tests.TC1_RegistrationTest@49fc609f]" name="tearDown" is-config="true" duration-ms="2275" started-at="2019-11-29T11:22:01 IST" finished-at="2019-11-29T11:22:04 IST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
