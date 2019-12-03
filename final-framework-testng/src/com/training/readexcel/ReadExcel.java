@@ -2,6 +2,7 @@ package com.training.readexcel;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Properties;
 
 import org.testng.annotations.DataProvider;
 
@@ -10,7 +11,7 @@ import jxl.Workbook;
 import jxl.read.biff.BiffException;
 
 public class ReadExcel {
-	
+	private static Properties properties;
 	public String[][] getExcelData(String fileName, String sheetName) 
 	   {
 			String[][] arrayExcelData = null;
@@ -42,8 +43,11 @@ public class ReadExcel {
 		}
 
 	// Test method, change the path of the .xls file 
-	public static void main(String[] args) {
-		String[][] result = new ReadExcel().getExcelData("C:/Users/Naveen/Desktop/Testing.xls", "Sheet1"); 
+	public static void main(String[] args)
+	{
+		String fileName=properties.getProperty("registrationexcelpath");
+		String sheetName=properties.getProperty("xlsheetName");
+		String[][] result = new ReadExcel().getExcelData(fileName, sheetName); 
 		
 		for(String [] temp : result){
 			for(String temp1: temp){

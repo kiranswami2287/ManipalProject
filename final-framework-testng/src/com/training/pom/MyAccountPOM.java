@@ -33,6 +33,8 @@ public class MyAccountPOM
 	@FindBy(xpath="//a[contains(text(),'Brands')]")
 	private WebElement brandOption; 
 	
+	@FindBy(xpath="//a[contains(text(),'Uniform Store')]")
+	private WebElement uniformStoreHome; 
 	
 	public void myAccountOrderHistory()
 	{	
@@ -57,6 +59,11 @@ public class MyAccountPOM
 	public void clickBrands()
 	{
 		this.brandOption.click();
+	}
+	
+	public void uniformStoreHomePage()
+	{
+		uniformStoreHome.click();
 	}
 	
 }

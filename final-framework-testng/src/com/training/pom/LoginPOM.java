@@ -39,6 +39,7 @@ public class LoginPOM
 	private WebElement forgotPasswordLink; 
 	
 	
+	
 	public void sendLoginDetails(String userName, String password)
 	{	
 		//clear username field
@@ -51,6 +52,7 @@ public class LoginPOM
 		this.password.sendKeys(password); 
 		//click on login button
 		this.loginBtn.click(); 
+		
 	}	
 	
 	public void invalidLogin() throws InterruptedException
@@ -59,7 +61,10 @@ public class LoginPOM
 		String expectedMessage = "Warning: No match for E-Mail Address and/or Password.";
 		String errorMessage=this.loginErrorMessage.getText();
 		Assert.assertEquals(expectedMessage,errorMessage);
-		Thread.sleep(500);
+	}	
+	
+	public void forgotPWLink()
+	{
 		//click on forgotten password link
 		forgotPasswordLink.click();
 			

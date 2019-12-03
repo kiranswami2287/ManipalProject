@@ -1,10 +1,7 @@
 package com.training.readexcel;
 
 import java.io.File;
-
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Iterator;
 import java.util.Properties;
 
@@ -12,7 +9,6 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.testng.annotations.BeforeClass;
 
 
 /**
@@ -24,15 +20,13 @@ import org.testng.annotations.BeforeClass;
  *      participatns are asked to refractor this path in the property file and
  *      access.
  */
-public class ApachePOIExcelRead 
+public class ApachePOIExcelRead
 {
 	private static Properties properties;
-	//private static String loginexcelpath;
-	//private String loginexcel;
 	public  String [][] getExcelContent(String fileName) {
 		int rowCount =0; 
 		String [][] list1 = null; 
-		
+
 		try {
 			System.out.println("File Name Got " + fileName);
 			FileInputStream file = new FileInputStream(new File(fileName));
@@ -42,18 +36,18 @@ public class ApachePOIExcelRead
 
 			// Get first/desired sheet from the workbook
 			XSSFSheet sheet = workbook.getSheetAt(0);
-			
+
 			int rowTotal = sheet.getLastRowNum();
 
 			if ((rowTotal > 0) || (sheet.getPhysicalNumberOfRows() > 0)) {
 			    rowTotal++;
 			}
-			
-			
+
+
 			// Iterate through each rows one by one
 			Iterator<Row> rowIterator = sheet.iterator();
 			 list1 = new String[rowTotal][2];
-			 
+
 			while (rowIterator.hasNext()) {
 				Row row = rowIterator.next();
 				// For each row, iterate through all the columns
@@ -62,16 +56,16 @@ public class ApachePOIExcelRead
 				int cellCount = 0; 
 				int noOfColumns = row.getLastCellNum(); 
 				String[] tempList1 = new String[noOfColumns];
-				
-				
-				
+
+
+
 				while (cellIterator.hasNext()) {
 					Cell cell = cellIterator.next();
 					// Check the cell type and format accordingly
 					switch (cell.getCellType()) {
 
 					case Cell.CELL_TYPE_NUMERIC:
-						
+
 						if(((Double) cell.getNumericCellValue()).toString()!=null){
 							tempList1[cellCount] = ((Double) cell.getNumericCellValue()).toString(); 
 						} 
@@ -88,8 +82,8 @@ public class ApachePOIExcelRead
 					list1[rowCount++] = tempList1;
 				}
 			}
-		
-			
+
+
 			file.close();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -97,16 +91,11 @@ public class ApachePOIExcelRead
 
 		return list1;
 	}
-	
 
-	
+	public static void main(String[] args) {
+		//String fileName = "C:\\kiran data\\ManialProject\\RegistrationTestData.xlsx";
+		String fileName=properties.getProperty("registrationexcelpath");
 
-	public static void main(String[] args) throws IOException 
-	{
-		
-		 String fileName=properties.getProperty("registrationexcelpath");
-		
-		
 		for(String [] temp : new ApachePOIExcelRead().getExcelContent(fileName)){
 			for(String  tt : temp){
 				System.out.println(tt);

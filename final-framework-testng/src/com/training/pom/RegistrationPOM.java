@@ -14,7 +14,10 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class RegistrationPOM 
 {	
 	//Declare webdriver
-	private WebDriver driver; 
+	private WebDriver driver;
+	private String expectedMessageEmail = "E-Mail Address does not appear to be valid!";
+	private String actMesgEmail;
+	
 	//define constructor
 	public RegistrationPOM(WebDriver driver)
 	{
@@ -70,6 +73,15 @@ public class RegistrationPOM
 	@FindBy(xpath="//input[@class='btn btn-primary']") 
 	private WebElement continueBtn;
 	
+	@FindBy(xpath="//ul[@class='dropdown-menu dropdown-menu-right myaccount-menu']//a[contains(text(),'Logout')]") 
+	private WebElement logoutBtn;
+	
+	@FindBy(xpath="//a[@class='btn btn-primary']") 
+	private WebElement logoutContinueBtn;
+	
+	@FindBy(xpath="//input[@id='input-email']\\following::div") 
+	private WebElement actualMessageEmail;
+	
 	private WebElement expicitWait1,expicitWait2;
 	
 	public void sendRegistrationDetails(String firstName, String lastName, String email, String telephone, String address1, String city, String postcode, String password, String confirmPassword) throws InterruptedException 
@@ -78,6 +90,8 @@ public class RegistrationPOM
 		this.firstName.clear();
 		//send first name 
 		this.firstName.sendKeys(firstName);
+		
+		
 		//clear last name field
 		this.lastName.clear();
 		//send last name
@@ -86,6 +100,19 @@ public class RegistrationPOM
 		this.email.clear();
 		//send email
 		this.email.sendKeys(email);
+		
+		String emailvalue = this.email.getAttribute("value");
+		if((emailvalue).contains("@") && (emailvalue).contains(".") )
+		{
+			System.out.println("It is a valid email ID");
+		    
+		}
+		else{
+		   		   
+			actMesgEmail=this.actualMessageEmail.getText();
+		    Assert.assertEquals(expectedMessageEmail,actMesgEmail);
+		}
+
 		//clear telephone field
 		this.telephone.clear();
 		//send telephone no.
@@ -148,5 +175,10 @@ public class RegistrationPOM
 		Assert.assertEquals(expectedMessage,actualMessage);
 	}
 	
+	public void logout()
+	{
+		logoutBtn.click();
+		logoutContinueBtn.click();
+	}
 }	
 	
