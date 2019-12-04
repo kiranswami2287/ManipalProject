@@ -17,7 +17,9 @@ public class RegistrationPOM
 	private WebDriver driver;
 	private String expectedMessageEmail = "E-Mail Address does not appear to be valid!";
 	private String actMesgEmail;
-	
+	private String expectedMessageTelephone;
+	private String actMesgTelephone;
+	private String regexTelephone = "/^[0-9]a-zA-Z*$/";
 	//define constructor
 	public RegistrationPOM(WebDriver driver)
 	{
@@ -79,17 +81,18 @@ public class RegistrationPOM
 	@FindBy(xpath="//a[@class='btn btn-primary']") 
 	private WebElement logoutContinueBtn;
 	
-	@FindBy(xpath="//input[@id='input-email']\\following::div") 
-	private WebElement actualMessageEmail;
+	//@FindBy(xpath="//div[contains(text(),'E-Mail Address does not appear to be valid!')]") 
+	//private WebElement actualMessageEmail;
 	
 	private WebElement expicitWait1,expicitWait2;
 	
-	public void sendRegistrationDetails(String firstName, String lastName, String email, String telephone, String address1, String city, String postcode, String password, String confirmPassword) throws InterruptedException 
+	public void sendRegistrationDetails(String firstName, String lastName, String email, String telephone, String address1, String city, String postcode, String country,String state,String password, String confirmPassword) throws InterruptedException 
 	{
 		//clear firstname field		
 		this.firstName.clear();
 		//send first name 
 		this.firstName.sendKeys(firstName);
+		
 		
 		
 		//clear last name field
@@ -101,22 +104,11 @@ public class RegistrationPOM
 		//send email
 		this.email.sendKeys(email);
 		
-		String emailvalue = this.email.getAttribute("value");
-		if((emailvalue).contains("@") && (emailvalue).contains(".") )
-		{
-			System.out.println("It is a valid email ID");
-		    
-		}
-		else{
-		   		   
-			actMesgEmail=this.actualMessageEmail.getText();
-		    Assert.assertEquals(expectedMessageEmail,actMesgEmail);
-		}
-
 		//clear telephone field
 		this.telephone.clear();
 		//send telephone no.
 		this.telephone.sendKeys(telephone);
+		
 		//clear address1 field
 		this.address1.clear();
 		//send Address1 
@@ -130,13 +122,16 @@ public class RegistrationPOM
 		//send postcode
 		this.postcode.sendKeys(postcode);
 		//select country from dropdown
+		
+		Thread.sleep(1000);
 		Select countryDropdown=new Select(this.country);
-		countryDropdown.selectByVisibleText("India");
+		countryDropdown.selectByVisibleText(country);
 		
 		Thread.sleep(1000);
 		//select state from dropdown
 		Select stateDropdown=new Select(this.state);
-		stateDropdown.selectByVisibleText("Karnataka"); 
+		stateDropdown.selectByVisibleText(state); 
+		
 		//clear password field
 		this.password.clear(); 
 		//send password
@@ -165,7 +160,38 @@ public class RegistrationPOM
 	{	
 		//click on continue button
 		this.continueBtn.click(); 
-	}
+		
+	/*	String emailvalue = this.email.getAttribute("value");
+		if((emailvalue).contains("@") && (emailvalue).contains(".") )
+		{
+			System.out.println("It is a valid email ID");
+		    
+		}
+		else{
+		   		   
+			System.out.println("It is a invalid email ID");
+			//actMesgEmail=this.actualMessageEmail.getText();
+		    //Assert.assertEquals(expectedMessageEmail,actMesgEmail);
+		}
+		
+		if(this.telephone.getAttribute("value").matches(regexTelephone))
+		{
+			System.out.println("it is valid phone number");
+		}
+		else if(this.telephone.getAttribute("value").length() ==10)
+		{
+			System.out.println("it is valid phone number");
+			//this.actualMessageEmail.sendKeys("Telephone number should be numeric");
+		   // Assert.assertEquals(expectedMessageTelephone,actMesgTelephone);
+		}
+		else				
+		{
+			System.out.println("It is invalid phone number");
+			//actMesgTelephone=this.actualMessageTelephone.getText();
+		    //Assert.assertEquals(expectedMessageTelephone,actMesgTelephone);
+		}*/
+		
+}
 	
 	public void registrationValidate()
 	{
@@ -177,6 +203,8 @@ public class RegistrationPOM
 	
 	public void logout()
 	{
+		WebDriverWait wait2=new WebDriverWait(driver, 30);
+		expicitWait2 = wait2.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//ul[@class='dropdown-menu dropdown-menu-right myaccount-menu']//a[contains(text(),'Logout')]")));
 		logoutBtn.click();
 		logoutContinueBtn.click();
 	}

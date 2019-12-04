@@ -1,4 +1,4 @@
-package com.training.high.tests;
+package com.training.medium.tests;
 
 import java.io.FileInputStream;
 import java.io.IOException;

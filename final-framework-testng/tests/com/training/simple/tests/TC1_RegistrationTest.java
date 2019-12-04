@@ -1,5 +1,6 @@
-package com.training.high.tests;
-
+//packages
+package com.training.simple.tests;
+//import classes & Interfaces
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
@@ -11,21 +12,20 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import com.training.dataproviders.LoginDataProviders;
 import com.training.generics.ScreenShot;
+import com.training.pom.RegistrationPOM;
 import com.training.pom.HomePOM;
-import com.training.pom.ProductDetailPOM;
-import com.training.pom.ShoppingCartDetailsPOM;
 import com.training.utility.DriverFactory;
 import com.training.utility.DriverNames;
 
-public class TC6_032WithoutLogindisplayCheckout
-{
-	//Declare all variables and objects
+	public class TC1_RegistrationTest
+	{
+		//Declare all variables and objects
 		private WebDriver driver;
 		private String baseUrl;
+		private RegistrationPOM registrationPOM;
 		private HomePOM homePOM;
-		private ProductDetailPOM productDetailPOM;
-		private ShoppingCartDetailsPOM shoppingCartDetailsPOM;
 		private static Properties properties;
 		private ScreenShot screenShot;
 
@@ -41,18 +41,17 @@ public class TC6_032WithoutLogindisplayCheckout
 		}
 
 		@BeforeMethod
-		public void setUp() throws Exception
+		public void setUp() throws Exception 
 		{
 			//initialize driver
 			driver = DriverFactory.getDriver(DriverNames.CHROME);
 			driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 			//initialize POM files
 			homePOM= new HomePOM(driver);
-			productDetailPOM=new ProductDetailPOM(driver);
-			shoppingCartDetailsPOM=new ShoppingCartDetailsPOM(driver);
-			screenShot = new ScreenShot(driver); 
+			registrationPOM=new RegistrationPOM(driver);
 			//call URL from properties file
 			baseUrl = properties.getProperty("baseURL");
+			screenShot = new ScreenShot(driver); 
 			// open the browser 
 			driver.get(baseUrl);
 		}
@@ -62,27 +61,29 @@ public class TC6_032WithoutLogindisplayCheckout
 		{
 			Thread.sleep(1000);
 			// capture screenshot
-			screenShot.captureScreenShot("TC2");
+			screenShot.captureScreenShot("TC1");
 			//close all opened windows
 			driver.quit();
 		}
 		
-		@Test
-		public void withoutLogin()
+		
+		@Test(dataProvider = "excel-inputs", dataProviderClass = LoginDataProviders.class)
+		public void validRegistrationTest(String firstName, String lastName, String email, String telephone, String address1, String city, String postcode, String country,String state,String password, String confirmPassword) throws InterruptedException 
 		{
-			//select premium school uniform
-			homePOM.premiumSchoolUniform();
-			//select Rust color T-shirt
-			homePOM.selectRustTshirt();
-			//add to cart
-			productDetailPOM.addToCartRustTshirt();
-			//click on cart icon
-			productDetailPOM.clickCartIcon();
-			//click on view cart
-			productDetailPOM.clickViewCart();
-			//click on checkout button
-			shoppingCartDetailsPOM.clickCheckoutBtn();
+			//Move mouse over to My Account
+			homePOM.selectMyAccount();
 			
+			//select Register option from My Account
+			homePOM.myAccountRegister();
+				
+			//Register new user
+			registrationPOM.sendRegistrationDetails(firstName,lastName,email,telephone,address1,city,postcode,country,state,password,confirmPassword);
+							
+			//continue with registration
+			registrationPOM.clickContinueBtn();		
+			
+			//validate registration
+			registrationPOM.registrationValidate();
 		}
-
-}
+	}		
+	

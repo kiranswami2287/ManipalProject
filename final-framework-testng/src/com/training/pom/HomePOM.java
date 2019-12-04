@@ -48,6 +48,8 @@ public class HomePOM {
 	
 	public void selectMyAccount()
 	{
+		WebDriverWait wait2=new WebDriverWait(driver, 30);
+		expicitWait2 = wait2.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='top-links1']/ul/li[3]/a")));
 		//move mouse over to My Account
 		Actions action=new Actions(driver);
 		action.moveToElement(myAccount).build().perform();

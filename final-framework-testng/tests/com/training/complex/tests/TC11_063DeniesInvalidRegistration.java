@@ -1,6 +1,5 @@
-//packages
-package com.training.high.tests;
-//import classes & Interfaces
+package com.training.complex.tests;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
@@ -12,24 +11,21 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import com.training.dataproviders.LoginDataProviders;
 import com.training.generics.ScreenShot;
-import com.training.pom.RecoverPasswordPOM;
 import com.training.pom.HomePOM;
-import com.training.pom.LoginPOM;
+import com.training.pom.RegistrationPOM;
 import com.training.utility.DriverFactory;
 import com.training.utility.DriverNames;
 
-public class TC3_RecoverPassword 
+public class TC11_063DeniesInvalidRegistration
 {
+
 	//Declare all variables and objects
 	private WebDriver driver;
 	private String baseUrl;
-	private String validEmail;
-	private String invalidEmail;
-	private String invalidPassword;
-	private LoginPOM loginPOM;
+	private RegistrationPOM registrationPOM;
 	private HomePOM homePOM;
-	private RecoverPasswordPOM recoverPasswordPOM;
 	private static Properties properties;
 	private ScreenShot screenShot;
 
@@ -51,9 +47,8 @@ public class TC3_RecoverPassword
 		driver = DriverFactory.getDriver(DriverNames.CHROME);
 		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 		//initialize POM files
-		loginPOM = new LoginPOM(driver); 
 		homePOM= new HomePOM(driver);
-		recoverPasswordPOM=new RecoverPasswordPOM(driver);
+		registrationPOM=new RegistrationPOM(driver);
 		//call URL from properties file
 		baseUrl = properties.getProperty("baseURL");
 		screenShot = new ScreenShot(driver); 
@@ -66,40 +61,33 @@ public class TC3_RecoverPassword
 	{
 		Thread.sleep(1000);
 		// capture screenshot
-		screenShot.captureScreenShot("TC3");
+		screenShot.captureScreenShot("TC1");
 		//close all opened windows
-		driver.quit();
+		//driver.quit();
 	}
 	
-	@Test
-	public void forgotPasswordTest() throws InterruptedException
+	
+	@Test(dataProvider = "excel-inputs", dataProviderClass = LoginDataProviders.class)
+	public void validRegistrationTest(String firstName, String lastName, String email, String telephone, String address1, String city, String postcode, String country,String state,String password, String confirmPassword) throws InterruptedException 
 	{
 		//Move mouse over to My Account
 		homePOM.selectMyAccount();
 		
-		//select Login option from My Account
-		homePOM.myAccountLogin();
+		//select Register option from My Account
+		homePOM.myAccountRegister();
 		
-		invalidEmail=properties.getProperty("invalidemail");
-		invalidPassword=properties.getProperty("invalidpassword");
-		//login to Application
-		loginPOM.sendLoginDetails(invalidEmail,invalidPassword);
+
+		//Register new user
+		registrationPOM.sendRegistrationDetails(firstName,lastName,email,telephone,address1,city,postcode,country,state,password,confirmPassword);
+						
+		//continue with registration
+		registrationPOM.clickContinueBtn();		
 		
-		//verify invalid login
-		loginPOM.invalidLogin();
-		
-		
-		loginPOM.forgotPWLink();
-		
-		validEmail=properties.getProperty("username");
-		//Recover Password details
-		recoverPasswordPOM.sendForgotPasswordDetails(validEmail);
-		
-		//validate email and password
-		recoverPasswordPOM.forgotPasswordValidate();
-		
+		//validate registration
+		registrationPOM.registrationValidate();
 	}
-}
+}		
+
 
 
 

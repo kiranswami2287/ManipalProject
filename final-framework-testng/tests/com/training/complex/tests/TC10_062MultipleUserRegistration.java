@@ -1,5 +1,5 @@
 //packages
-	package com.training.high.tests;
+	package com.training.complex.tests;
 	//import classes & Interfaces
 	import java.io.FileInputStream;
 	import java.io.IOException;
@@ -68,7 +68,7 @@
 			
 			
 			@Test(dataProvider = "excel-inputs", dataProviderClass = LoginDataProviders.class)
-			public void validRegistrationTest(String firstName, String lastName, String email, String telephone, String address1, String city, String postcode, String password, String confirmPassword) throws InterruptedException 
+			public void validRegistrationTest(String firstName, String lastName, String email, String telephone, String address1, String city, String postcode,String country,String state, String password, String confirmPassword) throws InterruptedException 
 			{
 				//Move mouse over to My Account
 				homePOM.selectMyAccount();
@@ -78,7 +78,7 @@
 				
 		
 				//Register new user
-				registrationPOM.sendRegistrationDetails(firstName,lastName,email,telephone,address1,city,postcode,password,confirmPassword);
+				registrationPOM.sendRegistrationDetails(firstName,lastName,email,telephone,address1,city,postcode,country,state,password,confirmPassword);
 								
 				//continue with registration
 				registrationPOM.clickContinueBtn();		

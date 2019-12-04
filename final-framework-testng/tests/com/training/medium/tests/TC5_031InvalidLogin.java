@@ -1,4 +1,4 @@
-package com.training.high.tests;
+package com.training.medium.tests;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -6,6 +6,7 @@ import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -16,6 +17,7 @@ import com.training.dataproviders.LoginDataProviders;
 import com.training.generics.ScreenShot;
 import com.training.pom.HomePOM;
 import com.training.pom.LoginPOM;
+import com.training.pom.MyAccountPOM;
 import com.training.pom.RegistrationPOM;
 import com.training.utility.DriverFactory;
 import com.training.utility.DriverNames;
@@ -23,13 +25,14 @@ import com.training.utility.DriverNames;
 public class TC5_031InvalidLogin 
 {
 	//Declare all variables and objects
-			private WebDriver driver;
-			private String baseUrl;
-			private LoginPOM loginPOM;
-			private RegistrationPOM registrationPOM;
-			private HomePOM homePOM;
-			private static Properties properties;
-			private ScreenShot screenShot;
+			private  WebDriver driver;
+			private  String baseUrl;
+			private  LoginPOM loginPOM;
+			private  RegistrationPOM registrationPOM;
+			private  HomePOM homePOM;
+			private  MyAccountPOM myAccountPOM;
+			private  static Properties properties;
+			private  ScreenShot screenShot;
 
 			@BeforeClass
 			public static void setUpBeforeClass() throws IOException 
@@ -41,7 +44,7 @@ public class TC5_031InvalidLogin
 				//load data from properties file
 				properties.load(inStream);
 			}
-
+			
 			@BeforeMethod
 			public void setUp() throws Exception 
 			{
@@ -64,14 +67,14 @@ public class TC5_031InvalidLogin
 			{
 				Thread.sleep(1000);
 				// capture screenshot
-				screenShot.captureScreenShot("TC1");
+				screenShot.captureScreenShot("TC5");
 				//close all opened windows
 				driver.quit();
 			}
 			
 			
-			@Test(dataProvider = "excel-inputs", dataProviderClass = LoginDataProviders.class)
-			public void validRegistrationTest(String firstName, String lastName, String email, String telephone, String address1, String city, String postcode, String password, String confirmPassword) throws InterruptedException 
+			@Test(dataProvider = "excel-inputs", dataProviderClass = LoginDataProviders.class,priority=0)
+			public void validRegistrationTest(String firstName, String lastName, String email, String telephone, String address1, String city, String postcode,String country,String state, String password, String confirmPassword) throws InterruptedException 
 			{
 				//Move mouse over to My Account
 				homePOM.selectMyAccount();
@@ -80,7 +83,7 @@ public class TC5_031InvalidLogin
 				homePOM.myAccountRegister();
 						
 				//Register new user
-				registrationPOM.sendRegistrationDetails(firstName,lastName,email,telephone,address1,city,postcode,password,confirmPassword);
+				registrationPOM.sendRegistrationDetails(firstName,lastName,email,telephone,address1,city,postcode,country,state,password,confirmPassword);
 								
 				//continue with registration
 				registrationPOM.clickContinueBtn();		
@@ -88,24 +91,17 @@ public class TC5_031InvalidLogin
 				//validate registration
 				registrationPOM.registrationValidate();
 				
-				//Move mouse over to My Account
-				homePOM.selectMyAccount();
-				
-				registrationPOM.logout();
-				driver.quit();
+								
+				//registrationPOM.logout();
 			
 			 }	
-			
-
 			
 
 			@Test(dataProvider="inputs",dataProviderClass = LoginDataProviders.class,priority=1)
 			public void invalidLogin1(String userName, String password ) throws InterruptedException
 			{
-				
 				//Move mouse over to My Account
 				homePOM.selectMyAccount();
-				
 				
 				//select Login option from My Account
 				homePOM.myAccountLogin();

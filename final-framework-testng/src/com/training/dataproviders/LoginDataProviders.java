@@ -62,23 +62,10 @@ public class LoginDataProviders
 		return new ApachePOIExcelRead().getExcelContent(fileName); 
 	}
 	
-/*	@DataProvider(name = "excel-inputs1")
-	public Object[][] getExcelData1() throws IOException
-	{
-		//initialize properties file
-		properties = new Properties();
-		//Read properties file from given path
-		FileInputStream inStream = new FileInputStream("./resources/others.properties");
-		//load data from properties file
-		properties.load(inStream);
-		String fileName=properties.getProperty("registrationexcelpath");
-				
-		return new ApachePOIExcelRead().getExcelContent(fileName); 
-	}
-	*/
+
 	
 		
-	/*@DataProvider(name = "xls-inputs")
+	@DataProvider(name = "xls-inputs")
 	public Object[][] getXLSData() throws IOException{
 		
 		//initialize properties file
@@ -91,5 +78,5 @@ public class LoginDataProviders
 				String sheetName=properties.getProperty("xlsheetName");
 		// ensure you will have the title as first line in the file 
 		return new ReadExcel().getExcelData(fileName, sheetName); 
-	}*/
+	}
 }

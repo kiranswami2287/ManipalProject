@@ -1,5 +1,5 @@
 //packages
-package com.training.high.tests;
+package com.training.simple.tests;
 //import classes & Interfaces
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -13,20 +13,23 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.training.generics.ScreenShot;
+import com.training.pom.RecoverPasswordPOM;
 import com.training.pom.HomePOM;
 import com.training.pom.LoginPOM;
 import com.training.utility.DriverFactory;
 import com.training.utility.DriverNames;
 
-public class TC2_LoginTest
+public class TC3_RecoverPassword 
 {
 	//Declare all variables and objects
 	private WebDriver driver;
 	private String baseUrl;
-	private String username;
-	private String password;
+	private String validEmail;
+	private String invalidEmail;
+	private String invalidPassword;
 	private LoginPOM loginPOM;
 	private HomePOM homePOM;
+	private RecoverPasswordPOM recoverPasswordPOM;
 	private static Properties properties;
 	private ScreenShot screenShot;
 
@@ -42,7 +45,7 @@ public class TC2_LoginTest
 	}
 
 	@BeforeMethod
-	public void setUp() throws Exception
+	public void setUp() throws Exception 
 	{
 		//initialize driver
 		driver = DriverFactory.getDriver(DriverNames.CHROME);
@@ -50,9 +53,10 @@ public class TC2_LoginTest
 		//initialize POM files
 		loginPOM = new LoginPOM(driver); 
 		homePOM= new HomePOM(driver);
-		screenShot = new ScreenShot(driver); 
+		recoverPasswordPOM=new RecoverPasswordPOM(driver);
 		//call URL from properties file
 		baseUrl = properties.getProperty("baseURL");
+		screenShot = new ScreenShot(driver); 
 		// open the browser 
 		driver.get(baseUrl);
 	}
@@ -62,29 +66,40 @@ public class TC2_LoginTest
 	{
 		Thread.sleep(1000);
 		// capture screenshot
-		screenShot.captureScreenShot("TC2");
+		screenShot.captureScreenShot("TC3");
 		//close all opened windows
 		driver.quit();
 	}
+	
 	@Test
-	public void validLoginTest()
+	public void forgotPasswordTest() throws InterruptedException
 	{
-				
 		//Move mouse over to My Account
 		homePOM.selectMyAccount();
 		
 		//select Login option from My Account
 		homePOM.myAccountLogin();
-		//read username from property file
-		username=properties.getProperty("username");
-		//read password from property file
-		password=properties.getProperty("password");
 		
+		invalidEmail=properties.getProperty("invalidemail");
+		invalidPassword=properties.getProperty("invalidpassword");
 		//login to Application
-		loginPOM.sendLoginDetails(username,password);
+		loginPOM.sendLoginDetails(invalidEmail,invalidPassword);
 		
-		//validate login
-		loginPOM.loginValidate();
+		//verify invalid login
+		loginPOM.invalidLogin();
+		
+		
+		loginPOM.forgotPWLink();
+		
+		validEmail=properties.getProperty("username");
+		//Recover Password details
+		recoverPasswordPOM.sendForgotPasswordDetails(validEmail);
+		
+		//validate email and password
+		recoverPasswordPOM.forgotPasswordValidate();
 		
 	}
 }
+
+
+
