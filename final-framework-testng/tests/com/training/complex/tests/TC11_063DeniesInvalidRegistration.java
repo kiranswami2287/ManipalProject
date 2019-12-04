@@ -61,7 +61,7 @@ public class TC11_063DeniesInvalidRegistration
 	{
 		Thread.sleep(1000);
 		// capture screenshot
-		screenShot.captureScreenShot("TC1");
+		screenShot.captureScreenShot("TC11");
 		//close all opened windows
 		//driver.quit();
 	}

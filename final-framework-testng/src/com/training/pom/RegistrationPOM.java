@@ -15,11 +15,8 @@ public class RegistrationPOM
 {	
 	//Declare webdriver
 	private WebDriver driver;
-	private String expectedMessageEmail = "E-Mail Address does not appear to be valid!";
-	private String actMesgEmail;
-	private String expectedMessageTelephone;
-	private String actMesgTelephone;
-	private String regexTelephone = "/^[0-9]a-zA-Z*$/";
+	private String regexNumber = "/^[0-9]a-zA-Z*$/";
+	private String regexName="/^[a-zA-Z]0-9*$/";
 	//define constructor
 	public RegistrationPOM(WebDriver driver)
 	{
@@ -81,9 +78,7 @@ public class RegistrationPOM
 	@FindBy(xpath="//a[@class='btn btn-primary']") 
 	private WebElement logoutContinueBtn;
 	
-	//@FindBy(xpath="//div[contains(text(),'E-Mail Address does not appear to be valid!')]") 
-	//private WebElement actualMessageEmail;
-	
+		
 	private WebElement expicitWait1,expicitWait2;
 	
 	public void sendRegistrationDetails(String firstName, String lastName, String email, String telephone, String address1, String city, String postcode, String country,String state,String password, String confirmPassword) throws InterruptedException 
@@ -92,8 +87,6 @@ public class RegistrationPOM
 		this.firstName.clear();
 		//send first name 
 		this.firstName.sendKeys(firstName);
-		
-		
 		
 		//clear last name field
 		this.lastName.clear();
@@ -107,6 +100,7 @@ public class RegistrationPOM
 		//clear telephone field
 		this.telephone.clear();
 		//send telephone no.
+		//this.telephone.sendKeys(""+telephone);
 		this.telephone.sendKeys(telephone);
 		
 		//clear address1 field
@@ -161,37 +155,40 @@ public class RegistrationPOM
 		//click on continue button
 		this.continueBtn.click(); 
 		
-	/*	String emailvalue = this.email.getAttribute("value");
-		if((emailvalue).contains("@") && (emailvalue).contains(".") )
-		{
-			System.out.println("It is a valid email ID");
-		    
-		}
-		else{
-		   		   
-			System.out.println("It is a invalid email ID");
-			//actMesgEmail=this.actualMessageEmail.getText();
-		    //Assert.assertEquals(expectedMessageEmail,actMesgEmail);
-		}
+		String firstnamevalue=this.firstName.getAttribute("value");
+		Assert.assertTrue(firstnamevalue.matches("["+ regexName + "]+"), "First Name is Invalid");
+		Assert.assertTrue(firstnamevalue.length()>1 && firstnamevalue.length()<32, "First Name must be between 1 and 32 characters");
 		
-		if(this.telephone.getAttribute("value").matches(regexTelephone))
-		{
-			System.out.println("it is valid phone number");
-		}
-		else if(this.telephone.getAttribute("value").length() ==10)
-		{
-			System.out.println("it is valid phone number");
-			//this.actualMessageEmail.sendKeys("Telephone number should be numeric");
-		   // Assert.assertEquals(expectedMessageTelephone,actMesgTelephone);
-		}
-		else				
-		{
-			System.out.println("It is invalid phone number");
-			//actMesgTelephone=this.actualMessageTelephone.getText();
-		    //Assert.assertEquals(expectedMessageTelephone,actMesgTelephone);
-		}*/
+		String lastnamevalue=this.lastName.getAttribute("value");
+		Assert.assertTrue(lastnamevalue.matches("["+ regexName + "]+"), "Last Name is Invalid");
+		Assert.assertTrue(lastnamevalue.length()>1 && lastnamevalue.length()<32, "Last Name must be between 1 and 32 characters");
+			
+		String emailvalue = this.email.getAttribute("value");
+		Assert.assertTrue((emailvalue).contains("@") && (emailvalue).contains("."), "E-Mail Address does not appear to be valid");
 		
-}
+		String telephoneValue=this.telephone.getAttribute("value");
+		Assert.assertTrue(telephoneValue.matches(regexNumber), "Telephone is Invalid");	
+		Assert.assertTrue(telephoneValue.length() ==10, "Telephone no. should be 10 digit");
+		
+		String address1value = this.address1.getAttribute("value");
+		Assert.assertTrue(address1value.length()>3 && address1value.length()<128, "Address1 must be between 3 and 128 characters");
+		
+		String cityvalue = this.city.getAttribute("value");
+		Assert.assertTrue(cityvalue.length()>2 && address1value.length()<128, "City must be between 2 and 128 characters");
+		
+		String postcodeValue=this.postcode.getAttribute("value");
+		Assert.assertTrue(postcodeValue.matches(regexNumber), "Post Code is Invalid");	
+		Assert.assertTrue(postcodeValue.length() ==5, "Post Code is Invalid");
+		
+		Assert.assertTrue(this.state.isSelected(), "Please Select Region/State");
+		
+		String passwordvalue=this.password.getAttribute("value");
+		String confirmpasswordvalue=this.confirmPassword.getAttribute("value");	
+		Assert.assertTrue((passwordvalue.length()>4 && passwordvalue.length()<20), "Password must be between 4 and 20 characters");
+		Assert.assertTrue((passwordvalue==confirmpasswordvalue), "Password and Confirm Password not matching");
+		
+		}
+
 	
 	public void registrationValidate()
 	{

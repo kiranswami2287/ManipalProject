@@ -34,6 +34,13 @@ public class DashboardPOM
 			@FindBy(xpath="//a[@id='button-menu']")
 			private WebElement menuBtn; 
 			
+			@FindBy(xpath="//li[@id='customer']//a[@class='parent']")
+			private WebElement customerTab; 
+			
+			@FindBy(xpath="//ul[@class='collapse in']//a[contains(text(),'Customers')]")
+			private WebElement customerOption; 
+			
+			
 			public void clickMenuBtn()
 			{
 				this.menuBtn.click();
@@ -52,9 +59,17 @@ public class DashboardPOM
 			}	
 			
 			
+			public void clickCustomerTab()
+			{	
+				customerTab.click();
+				
+			}	
 			
-			
-			
+			public void clickCustomerOption()
+			{	
+				customerOption.click();
+				
+			}	
 				
 }
 
