@@ -4,7 +4,19 @@
 <suite name = "Sample test Suite">
    <test name = "Sample test">
       <classes>
-         <class name = "com.training.sanity.tests.LoginTests" />
+         <class name = "com.training.simple.tests.TC1_RegistrationTest"/>
+         <class name = "com.training.simple.tests.TC2_LoginTest"/>
+         <class name = "com.training.simple.tests.TC3_RecoverPassword"/>
+         <class name = "com.training.simple.tests.TC4_DisplayOrderHistory"/>
+         <class name = "com.training.medium.tests.TC5_031InvalidLogin"/>
+         <class name = "com.training.medium.tests.TC6_032WithoutLogindisplayCheckout"/>
+         <class name = "com.training.medium.tests.TC7_033PlaceOrderByPreLogin"/>
+         <class name = "com.training.medium.tests.TC8_034GuestUserPlaceOrder"/>
+         <class name = "com.training.complex.tests.TC9_061AddCustomer"/>
+         <class name = "com.training.complex.tests.TC10_062MultipleUserRegistration"/>
+         <class name = "com.training.complex.tests.TC11_063DeniesInvalidRegistration"/>
+         <class name = "com.training.complex.tests.TC12_064AddMultipleCategory"/>
+         
       </classes>
    </test>
 </suite>	
