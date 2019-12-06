@@ -46,7 +46,7 @@ public class ReadExcel {
 	public static void main(String[] args)
 	{
 		String fileName=properties.getProperty("registrationexcelpath");
-		String sheetName=properties.getProperty("xlsheetName");
+		String sheetName=properties.getProperty("sheet2");
 		String[][] result = new ReadExcel().getExcelData(fileName, sheetName); 
 		
 		for(String [] temp : result){

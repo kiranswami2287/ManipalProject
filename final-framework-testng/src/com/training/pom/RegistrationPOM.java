@@ -15,8 +15,7 @@ public class RegistrationPOM
 {	
 	//Declare webdriver
 	private WebDriver driver;
-	private String regexNumber = "/^[0-9]a-zA-Z*$/";
-	private String regexName="/^[a-zA-Z]0-9*$/";
+	
 	//define constructor
 	public RegistrationPOM(WebDriver driver)
 	{
@@ -78,10 +77,115 @@ public class RegistrationPOM
 	@FindBy(xpath="//a[@class='btn btn-primary']") 
 	private WebElement logoutContinueBtn;
 	
-		
+	@FindBy(xpath="//div[contains(text(),'First Name must be between 1 and 32 characters!')]") 
+	private WebElement errormsgfirstName;
+	
+	@FindBy(xpath="//div[contains(text(),'Last Name must be between 1 and 32 characters!')]") 
+	private WebElement errormsgLastName;
+	
+	@FindBy(xpath="//div[contains(text(),'E-Mail Address does not appear to be valid!')]") 
+	private WebElement errormsgEmail;
+	
+	@FindBy(xpath="//div[contains(text(),'Telephone must be between 3 and 32 characters!')]") 
+	private WebElement errormsgTelephone;
+	
+	@FindBy(xpath="//div[contains(text(),'Telephone must be between 3 and 32 characters!')]") 
+	private WebElement errormsgAddress1;
+	
+	@FindBy(xpath="//div[contains(text(),'City must be between 2 and 128 characters!')]") 
+	private WebElement errormsgCity;
+	
+	@FindBy(xpath="//div[contains(text(),'Postcode must be between 2 and 10 characters!')]") 
+	private WebElement errormsgPostcode;
+	
+	@FindBy(xpath="//div[contains(text(),'Please select a region / state!')]") 
+	private WebElement errormsgState;
+	
+	@FindBy(xpath="//div[contains(text(),'Password must be between 4 and 20 characters!')]") 
+	private WebElement errormsgPassword;
+	
 	private WebElement expicitWait1,expicitWait2;
 	
-	public void sendRegistrationDetails(String firstName, String lastName, String email, String telephone, String address1, String city, String postcode, String country,String state,String password, String confirmPassword) throws InterruptedException 
+	
+	public void validRegistrationDetails(String firstName, String lastName, String email, String telephone, String address1, String city, String postcode, String country,String state,String password, String confirmPassword) throws InterruptedException
+	{
+		//clear firstname field		
+				this.firstName.clear();
+				//send first name 
+				this.firstName.sendKeys(firstName);
+				
+				//clear last name field
+				this.lastName.clear();
+				//send last name
+				this.lastName.sendKeys(lastName);
+				//clear email field
+				this.email.clear();
+				//send email
+				this.email.sendKeys(email);
+				
+				//clear telephone field
+				this.telephone.clear();
+				//send telephone no.
+				//this.telephone.sendKeys(""+telephone);
+				this.telephone.sendKeys(telephone);
+				
+				//clear address1 field
+				this.address1.clear();
+				//send Address1 
+				this.address1.sendKeys(address1);
+				//clear city field
+				this.city.clear();
+				//send city
+				this.city.sendKeys(city);
+				//clear postcode
+				this.postcode.clear();
+				//send postcode
+				this.postcode.sendKeys(postcode);
+				//select country from dropdown
+				
+				Thread.sleep(1000);
+				Select countryDropdown=new Select(this.country);
+				countryDropdown.selectByVisibleText(country);
+				
+				Thread.sleep(1000);
+				//select state from dropdown
+				Select stateDropdown=new Select(this.state);
+				stateDropdown.selectByVisibleText(state); 
+				
+				
+				//clear password field
+				this.password.clear(); 
+				//send password
+				this.password.sendKeys(password); 
+				//clear confirm password field
+				this.confirmPassword.clear(); 
+				//send confirm password
+				this.confirmPassword.sendKeys(confirmPassword); 
+				
+				//click radio button
+				this.radioNo.click();
+			
+				//Explicit wait
+				WebDriverWait wait1=new WebDriverWait(driver, 30);
+				expicitWait2 = wait1.until(ExpectedConditions.visibilityOfElementLocated(By.name("agree")));
+				
+				if (this.agree.isSelected())
+				{
+					this.continueBtn.click(); 
+				}
+				else {
+				this.agree.click();
+				}
+
+				this.continueBtn.click(); 
+				String expectedMessage = "YOUR ACCOUNT HAS BEEN CREATED!";
+				String actualMessage=this.actualMessage.getText();
+				Assert.assertEquals(expectedMessage,actualMessage);
+	}
+	
+	
+	
+	public void invalidRegistrationDetails(String firstName, String lastName, String email, String telephone, String address1, String city, String postcode, String country,String state,String password, String confirmPassword,String firstNameErrorMsg,String lastNameErrorMsg,String emailErrorMsg,String telephoneErrorMsg,String address1ErrorMsg,String cityErrorMsg,String postcodeErrorMsg,String stateErrorMsg,String passwordErroMsg) throws InterruptedException 
 	{
 		//clear firstname field		
 		this.firstName.clear();
@@ -139,8 +243,8 @@ public class RegistrationPOM
 		this.radioNo.click();
 	
 		//Explicit wait
-		WebDriverWait wait2=new WebDriverWait(driver, 30);
-		expicitWait2 = wait2.until(ExpectedConditions.visibilityOfElementLocated(By.name("agree")));
+		WebDriverWait wait1=new WebDriverWait(driver, 30);
+		expicitWait2 = wait1.until(ExpectedConditions.visibilityOfElementLocated(By.name("agree")));
 		
 		if (this.agree.isSelected())
 		{
@@ -149,54 +253,68 @@ public class RegistrationPOM
 		else {
 		this.agree.click();
 		}
-}
-	public void clickContinueBtn() 
-	{	
-		//click on continue button
+
 		this.continueBtn.click(); 
+		//WebDriverWait wait2=new WebDriverWait(driver, 50);
+		//expicitWait2 = wait2.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(text(),'Last Name must be between 1 and 32 characters!')]")));
 		
-		String firstnamevalue=this.firstName.getAttribute("value");
-		Assert.assertTrue(firstnamevalue.matches("["+ regexName + "]+"), "First Name is Invalid");
-		Assert.assertTrue(firstnamevalue.length()>1 && firstnamevalue.length()<32, "First Name must be between 1 and 32 characters");
-		
-		String lastnamevalue=this.lastName.getAttribute("value");
-		Assert.assertTrue(lastnamevalue.matches("["+ regexName + "]+"), "Last Name is Invalid");
-		Assert.assertTrue(lastnamevalue.length()>1 && lastnamevalue.length()<32, "Last Name must be between 1 and 32 characters");
+		if (this.firstName.getAttribute("value")=="null")
+		{
+			this.firstName.sendKeys("");
+			String expctmsgfirstName="First Name must be between 1 and 32 characters!";
 			
-		String emailvalue = this.email.getAttribute("value");
-		Assert.assertTrue((emailvalue).contains("@") && (emailvalue).contains("."), "E-Mail Address does not appear to be valid");
-		
-		String telephoneValue=this.telephone.getAttribute("value");
-		Assert.assertTrue(telephoneValue.matches(regexNumber), "Telephone is Invalid");	
-		Assert.assertTrue(telephoneValue.length() ==10, "Telephone no. should be 10 digit");
-		
-		String address1value = this.address1.getAttribute("value");
-		Assert.assertTrue(address1value.length()>3 && address1value.length()<128, "Address1 must be between 3 and 128 characters");
-		
-		String cityvalue = this.city.getAttribute("value");
-		Assert.assertTrue(cityvalue.length()>2 && address1value.length()<128, "City must be between 2 and 128 characters");
-		
-		String postcodeValue=this.postcode.getAttribute("value");
-		Assert.assertTrue(postcodeValue.matches(regexNumber), "Post Code is Invalid");	
-		Assert.assertTrue(postcodeValue.length() ==5, "Post Code is Invalid");
-		
-		Assert.assertTrue(this.state.isSelected(), "Please Select Region/State");
-		
-		String passwordvalue=this.password.getAttribute("value");
-		String confirmpasswordvalue=this.confirmPassword.getAttribute("value");	
-		Assert.assertTrue((passwordvalue.length()>4 && passwordvalue.length()<20), "Password must be between 4 and 20 characters");
-		Assert.assertTrue((passwordvalue==confirmpasswordvalue), "Password and Confirm Password not matching");
-		
+			Assert.assertEquals(errormsgfirstName.getText(),expctmsgfirstName);
 		}
+		else if (lastName.isEmpty())
+		{
+			String expctmsgLastName="Last Name must be between 1 and 32 characters!";
+			Assert.assertEquals(errormsgLastName.getText(),expctmsgLastName);
+		}
+		else if (email.isEmpty())
+		{
+			String expctmsgEmail="Last Name must be between 1 and 32 characters!";
+			Assert.assertEquals(errormsgEmail.getText(),expctmsgEmail);
+		}
+		else if (telephone.isEmpty())
+		{
+			String expctmsgTelephone="Last Name must be between 1 and 32 characters!";
+			Assert.assertEquals(errormsgTelephone.getText(),expctmsgTelephone);
+		}	
+		else if (address1.isEmpty())
+		{
+			String expctmsgAddress1="Last Name must be between 1 and 32 characters!";
+			Assert.assertEquals(errormsgAddress1.getText(),expctmsgAddress1);
+		}	
+		else if (city.isEmpty())
+		{
+			String expctmsgCity="Last Name must be between 1 and 32 characters!";
+			Assert.assertEquals(errormsgCity.getText(),expctmsgCity);
+		}	
+		else if (postcode.isEmpty())
+		{
+			String expctmsgPostcode="Last Name must be between 1 and 32 characters!";
+			Assert.assertEquals(errormsgPostcode.getText(),expctmsgPostcode);
+		}	
+		else if (state.isEmpty())
+		{
+			String expctmsgState="Last Name must be between 1 and 32 characters!";
+			Assert.assertEquals(errormsgState.getText(),expctmsgState);
+		}	
+		else if (password.isEmpty())
+		{
+			String expctmsgPassword="Last Name must be between 1 and 32 characters!";
+			Assert.assertEquals(errormsgPassword.getText(),expctmsgPassword);
+		}	
+		
+		
+			
+		   
+	}
 
 	
-	public void registrationValidate()
-	{
-		//validate success message
-		String expectedMessage = "YOUR ACCOUNT HAS BEEN CREATED!";
-		String actualMessage=this.actualMessage.getText();
-		Assert.assertEquals(expectedMessage,actualMessage);
-	}
+	
+		
+	
 	
 	public void logout()
 	{

@@ -15,6 +15,7 @@ import org.testng.annotations.Test;
 
 import com.training.dataproviders.LoginDataProviders;
 import com.training.generics.ScreenShot;
+import com.training.pom.AccountCreatedSuccessPOM;
 import com.training.pom.HomePOM;
 import com.training.pom.LoginPOM;
 import com.training.pom.MyAccountPOM;
@@ -25,14 +26,15 @@ import com.training.utility.DriverNames;
 public class TC5_031InvalidLogin 
 {
 	//Declare all variables and objects
-			private  WebDriver driver;
-			private  String baseUrl;
-			private  LoginPOM loginPOM;
-			private  RegistrationPOM registrationPOM;
-			private  HomePOM homePOM;
-			private  MyAccountPOM myAccountPOM;
+			private  static WebDriver driver;
+			private  static String baseUrl;
+			private  static LoginPOM loginPOM;
+			private  static RegistrationPOM registrationPOM;
+			private  static HomePOM homePOM;
+			private  static MyAccountPOM myAccountPOM;
+			private static AccountCreatedSuccessPOM accountCreatedSuccessPOM;
 			private  static Properties properties;
-			private  ScreenShot screenShot;
+			private  static ScreenShot screenShot;
 
 			@BeforeClass
 			public static void setUpBeforeClass() throws IOException 
@@ -43,11 +45,7 @@ public class TC5_031InvalidLogin
 				FileInputStream inStream = new FileInputStream("./resources/others.properties");
 				//load data from properties file
 				properties.load(inStream);
-			}
-			
-			@BeforeMethod
-			public void setUp() throws Exception 
-			{
+		
 				//initialize driver
 				driver = DriverFactory.getDriver(DriverNames.CHROME);
 				driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
@@ -55,6 +53,7 @@ public class TC5_031InvalidLogin
 				homePOM= new HomePOM(driver);
 				loginPOM=new LoginPOM(driver);
 				registrationPOM=new RegistrationPOM(driver);
+				accountCreatedSuccessPOM=new AccountCreatedSuccessPOM(driver);
 				//call URL from properties file
 				baseUrl = properties.getProperty("baseURL");
 				screenShot = new ScreenShot(driver); 
@@ -62,7 +61,7 @@ public class TC5_031InvalidLogin
 				driver.get(baseUrl);
 			}
 			
-			@AfterMethod
+			@AfterClass
 			public void tearDown() throws Exception 
 			{
 				Thread.sleep(1000);
@@ -83,16 +82,10 @@ public class TC5_031InvalidLogin
 				homePOM.myAccountRegister();
 						
 				//Register new user
-				registrationPOM.sendRegistrationDetails(firstName,lastName,email,telephone,address1,city,postcode,country,state,password,confirmPassword);
+				registrationPOM.validRegistrationDetails(firstName,lastName,email,telephone,address1,city,postcode,country,state,password,confirmPassword);
 								
-				//continue with registration
-				registrationPOM.clickContinueBtn();		
-				
-				//validate registration
-				registrationPOM.registrationValidate();
-				
-								
-				//registrationPOM.logout();
+						
+				accountCreatedSuccessPOM.logout();
 			
 			 }	
 			

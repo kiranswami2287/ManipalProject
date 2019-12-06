@@ -6,6 +6,7 @@ import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -22,12 +23,12 @@ public class TC11_063DeniesInvalidRegistration
 {
 
 	//Declare all variables and objects
-	private WebDriver driver;
-	private String baseUrl;
-	private RegistrationPOM registrationPOM;
-	private HomePOM homePOM;
+	private static WebDriver driver;
+	private static String baseUrl;
+	private static RegistrationPOM registrationPOM;
+	private static HomePOM homePOM;
 	private static Properties properties;
-	private ScreenShot screenShot;
+	private static ScreenShot screenShot;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws IOException 
@@ -38,11 +39,7 @@ public class TC11_063DeniesInvalidRegistration
 		FileInputStream inStream = new FileInputStream("./resources/others.properties");
 		//load data from properties file
 		properties.load(inStream);
-	}
-
-	@BeforeMethod
-	public void setUp() throws Exception 
-	{
+	
 		//initialize driver
 		driver = DriverFactory.getDriver(DriverNames.CHROME);
 		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
@@ -56,19 +53,19 @@ public class TC11_063DeniesInvalidRegistration
 		driver.get(baseUrl);
 	}
 	
-	@AfterMethod
+	@AfterClass
 	public void tearDown() throws Exception 
 	{
 		Thread.sleep(1000);
 		// capture screenshot
 		screenShot.captureScreenShot("TC11");
 		//close all opened windows
-		//driver.quit();
+		driver.quit();
 	}
 	
 	
 	@Test(dataProvider = "excel-inputs", dataProviderClass = LoginDataProviders.class)
-	public void validRegistrationTest(String firstName, String lastName, String email, String telephone, String address1, String city, String postcode, String country,String state,String password, String confirmPassword) throws InterruptedException 
+	public void invalidRegistrationTest(String firstName, String lastName, String email, String telephone, String address1, String city, String postcode, String country,String state,String password, String confirmPassword,String firstNameErrorMsg,String lastNameErrorMsg,String emailErrorMsg,String telephoneErrorMsg,String address1ErrorMsg,String cityErrorMsg,String postcodeErrorMsg,String stateErrorMsg,String passwordErroMsg) throws InterruptedException 
 	{
 		//Move mouse over to My Account
 		homePOM.selectMyAccount();
@@ -76,17 +73,28 @@ public class TC11_063DeniesInvalidRegistration
 		//select Register option from My Account
 		homePOM.myAccountRegister();
 		
-
 		//Register new user
-		registrationPOM.sendRegistrationDetails(firstName,lastName,email,telephone,address1,city,postcode,country,state,password,confirmPassword);
-						
-		//continue with registration
-		registrationPOM.clickContinueBtn();		
+		registrationPOM.invalidRegistrationDetails(firstName,lastName,email,telephone,address1,city,postcode,country,state,password,confirmPassword,firstNameErrorMsg,lastNameErrorMsg, emailErrorMsg, telephoneErrorMsg, address1ErrorMsg, cityErrorMsg, postcodeErrorMsg, stateErrorMsg, passwordErroMsg);
 		
-		//validate registration
-		registrationPOM.registrationValidate();
+		registrationPOM.logout();
+		
 	}
-}		
+	/*@Test(dataProvider = "excel-inputs", dataProviderClass = LoginDataProviders.class)
+	public void invalidRegistrationTest(String firstName, String lastName, String email, String telephone, String address1, String city, String postcode, String country,String state,String password, String confirmPassword) throws InterruptedException 
+	{
+		//Move mouse over to My Account
+		homePOM.selectMyAccount();
+		
+		//select Register option from My Account
+		homePOM.myAccountRegister();
+		
+		//Register new user
+		registrationPOM.invalidRegistrationDetails(firstName,lastName,email,telephone,address1,city,postcode,country,state,password,confirmPassword);
+		
+		registrationPOM.logout();
+		
+	}	*/
+}	
 
 
 

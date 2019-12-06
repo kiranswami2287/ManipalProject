@@ -95,6 +95,7 @@ public class ApachePOIExcelRead
 	public static void main(String[] args) {
 		//String fileName = "C:\\kiran data\\ManialProject\\RegistrationTestData.xlsx";
 		String fileName=properties.getProperty("registrationexcelpath");
+		
 
 		for(String [] temp : new ApachePOIExcelRead().getExcelContent(fileName)){
 			for(String  tt : temp){

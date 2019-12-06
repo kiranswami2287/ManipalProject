@@ -3,13 +3,13 @@
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="com.training.complex.tests.TC9_061AddCustomer">
+      <class name="com.training.complex.tests.TC12_064AddMultipleCategory">
         <methods>
+          <include name="setUpBeforeClass"/>
           <include name="addCatagory"/>
           <include name="tearDown"/>
-          <include name="setUpBeforeClass"/>
         </methods>
-      </class> <!-- com.training.complex.tests.TC9_061AddCustomer -->
+      </class> <!-- com.training.complex.tests.TC12_064AddMultipleCategory -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

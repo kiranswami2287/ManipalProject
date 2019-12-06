@@ -60,8 +60,11 @@ public class TC12_064AddMultipleCategory
 		password=properties.getProperty("adminPassword");
 		adminLoginPOM.adminLogin(username, password);
 		adminLoginPOM.adminLoginValidate();
+		//click on menu button
 		dashboardPOM.clickMenuBtn();
+		//click on catalog
 		dashboardPOM.clickCatalog();
+		//click on catagories
 		dashboardPOM.clickCatagories();
 	}
 	
@@ -75,7 +78,7 @@ public class TC12_064AddMultipleCategory
 		driver.quit();
 	}
 	
-	@Test(dataProvider = "excel-inputs", dataProviderClass = LoginDataProviders.class)
+	@Test(dataProvider = "xls-inputs", dataProviderClass = LoginDataProviders.class)
 	public void addCatagory(String categoryName,String categoryDescription,String metaTagTitle,String metaTagDescription)
 	{
 		

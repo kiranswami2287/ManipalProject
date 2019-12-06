@@ -2,6 +2,7 @@ package com.training.dataproviders;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Properties;
 
@@ -48,6 +49,8 @@ public class LoginDataProviders
 	}
 	
 	
+	
+
 	@DataProvider(name = "excel-inputs")
 	public Object[][] getExcelData() throws IOException
 	{
@@ -58,11 +61,12 @@ public class LoginDataProviders
 		//load data from properties file
 		properties.load(inStream);
 		String fileName=properties.getProperty("registrationexcelpath");
-				
+			
 		return new ApachePOIExcelRead().getExcelContent(fileName); 
+		
 	}
 	
-
+	
 	
 		
 	@DataProvider(name = "xls-inputs")
@@ -75,7 +79,7 @@ public class LoginDataProviders
 				//load data from properties file
 				properties.load(inStream);
 				String fileName=properties.getProperty("registrationexcelpath");
-				String sheetName=properties.getProperty("xlsheetName");
+				String sheetName=properties.getProperty("sheet2");
 		// ensure you will have the title as first line in the file 
 		return new ReadExcel().getExcelData(fileName, sheetName); 
 	}

@@ -7,6 +7,7 @@ import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -59,9 +60,10 @@ public class TC3_RecoverPassword
 		screenShot = new ScreenShot(driver); 
 		// open the browser 
 		driver.get(baseUrl);
+		
 	}
 	
-	@AfterMethod
+	@AfterClass
 	public void tearDown() throws Exception 
 	{
 		Thread.sleep(1000);

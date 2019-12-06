@@ -24,8 +24,10 @@ import com.training.utility.DriverNames;
 		//Declare all variables and objects
 		private WebDriver driver;
 		private String baseUrl;
+		private String filename;
 		private RegistrationPOM registrationPOM;
 		private HomePOM homePOM;
+		private LoginDataProviders loginDataProviders;
 		private static Properties properties;
 		private ScreenShot screenShot;
 
@@ -51,6 +53,9 @@ import com.training.utility.DriverNames;
 			registrationPOM=new RegistrationPOM(driver);
 			//call URL from properties file
 			baseUrl = properties.getProperty("baseURL");
+			loginDataProviders=new LoginDataProviders();
+			filename=properties.getProperty("registrationexcelpath");
+			
 			screenShot = new ScreenShot(driver); 
 			// open the browser 
 			driver.get(baseUrl);
@@ -67,9 +72,14 @@ import com.training.utility.DriverNames;
 		}
 		
 		
+		
+		
+		
 		@Test(dataProvider = "excel-inputs", dataProviderClass = LoginDataProviders.class)
-		public void validRegistrationTest(String firstName, String lastName, String email, String telephone, String address1, String city, String postcode, String country,String state,String password, String confirmPassword) throws InterruptedException 
+		public void validRegistrationTest(String firstName, String lastName, String email, String telephone, String address1, String city, String postcode, String country,String state,String password, String confirmPassword) throws InterruptedException, IOException 
 		{
+			
+			
 			//Move mouse over to My Account
 			homePOM.selectMyAccount();
 			
@@ -77,13 +87,7 @@ import com.training.utility.DriverNames;
 			homePOM.myAccountRegister();
 				
 			//Register new user
-			registrationPOM.sendRegistrationDetails(firstName,lastName,email,telephone,address1,city,postcode,country,state,password,confirmPassword);
-							
-			//continue with registration
-			registrationPOM.clickContinueBtn();		
-			
-			//validate registration
-			registrationPOM.registrationValidate();
+			registrationPOM.validRegistrationDetails(firstName, lastName, email, telephone, address1, city, postcode, country, state, password, confirmPassword);
 		}
 	}		
 	

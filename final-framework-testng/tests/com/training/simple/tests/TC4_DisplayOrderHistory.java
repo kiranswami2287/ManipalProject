@@ -11,6 +11,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -75,10 +76,26 @@ public class TC4_DisplayOrderHistory
 		
 		// open the browser 
 		driver.get(baseUrl);
+		//Move mouse over to My Account
+		homePOM.selectMyAccount();
+			
+		//select Login option from My Account
+		homePOM.myAccountLogin();
+			
+		//read username from property file
+		userName=properties.getProperty("username");
+		//read password from property file
+		password=properties.getProperty("password");
+		//login to Application
+		loginPOM.sendLoginDetails(userName,password);
+			
+		//validate login
+		loginPOM.loginValidate();
+				
 		
 	}
 	
-	@AfterMethod
+	@AfterClass
 	public void tearDown() throws Exception
 	{
 		Thread.sleep(1000);
@@ -88,52 +105,11 @@ public class TC4_DisplayOrderHistory
 		driver.quit();
 	}
 	
-	/*@Test(priority=0)
-	public void addOrder()
-	{
-		homePOM.selectMyAccount();
-		homePOM.myAccountLogin();
-		userName=properties.getProperty("username");
-		//read password from property file
-		password=properties.getProperty("password");
-		//login to Application
-		loginPOM.sendLoginDetails(userName,password);
-		
-		//validate login
-		loginPOM.loginValidate();
-		//click on brands
-		myAccountPOM.clickBrands();
-		brandDetailsPOM.selectUniformMaker();
-		uniformMakerPOM.addProduct();
-		
-		productDetailPOM.addToCart();
-		productDetailPOM.selectCart();
-		productDetailPOM.clickCheckout();
-		
-	}*/// able to automate till add product to cart..checkout part is remaining so commented this code. 
-	  //this is just  prerequisite, not updated in tc. actual test case is working fine.
 	
-	@Test(priority=1)
+	@Test
 	public void orderHistoryDisplay() throws InterruptedException
 	{
-		//Move mouse over to My Account
-		homePOM.selectMyAccount();
-		
-		//select Login option from My Account
-		homePOM.myAccountLogin();
-		
-		//read username from property file
-		userName=properties.getProperty("username");
-		//read password from property file
-		password=properties.getProperty("password");
-		//login to Application
-		loginPOM.sendLoginDetails(userName,password);
-		
-		//validate login
-		loginPOM.loginValidate();
-		
-				
-		//select order History option from my Account
+	//select order History option from my Account
 		myAccountPOM.myAccountOrderHistory();	
 		
 		//Validating landing to Order History page or not
