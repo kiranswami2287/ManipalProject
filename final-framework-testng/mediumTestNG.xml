@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+ <suite name="MediumTestSuite">
+   <test thread-count="1" name="mediumtestcaseValidation">
+     <classes>
+       		<class name = "com.training.medium.tests.TC5_031InvalidLogin"/>
+         	<class name = "com.training.medium.tests.TC6_032WithoutLogindisplayCheckout"/>
+         	<class name = "com.training.medium.tests.TC7_033PlaceOrderByPreLogin"/>
+         	<class name = "com.training.medium.tests.TC8_034GuestUserPlaceOrder"/>
+     </classes>
+   </test> <!-- mediumtestcaseValidation -->
+ </suite> <!-- MediumTestsuite -->

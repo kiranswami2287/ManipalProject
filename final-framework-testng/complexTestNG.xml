@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+ <suite name="ComplexTestSuite">
+   <test thread-count="1" name="complextestcaseValidation">
+     <classes>
+      	 <class name = "com.training.complex.tests.TC9_061AddCustomer"/>
+         <class name = "com.training.complex.tests.TC10_062MultipleUserRegistration"/>
+         <class name = "com.training.complex.tests.TC11_063DeniesInvalidRegistration"/>
+         <class name = "com.training.complex.tests.TC12_064AddMultipleCategory"/>
+     </classes>
+   </test> <!-- complextestcaseValidation -->
+ </suite> <!-- ComplexTestSuite -->
